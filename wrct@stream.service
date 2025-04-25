@@ -1,0 +1,15 @@
+[Unit]
+Description=WRCT Web Stream
+After=network.target
+
+[Service]
+WorkingDirectory=/home/wrct/wrct_stream_keep_alive
+ExecStart=/home/wrct/wrct_stream_keep_alive/stream.sh
+ExecStop=/home/wrct/wrct_stream_keep_alive/kill.sh
+ExecReload=/home/wrct/wrct_stream_keep_alive/restart.sh
+Restart=on-failure
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=default.target
