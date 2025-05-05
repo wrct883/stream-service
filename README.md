@@ -45,3 +45,10 @@ This uses axia's livewire protocol. As of 2025-04-25, our current broadcast chan
     * get the hex code (Python) with channel 7001: `hex(239*256**3 + 192*256**2 + 7001)`
     * This uses the `rtpdump` command line utility you installed with the `rtptools` repo earlier. This listens on `rtp` to the above ip address, port 5004 (Axia Livewire protocol specification)
 
+
+## misc
+broadcast what's actually playing on radio using rtl-sdr:
+```
+rtl_fm -g 50 -f 88.3M -M wfm -s 180k -E deemp | sox -t raw -r 180k -e signed -b 16 -c 1 -V1 - -t mp3 - remix 1 lowpass 16k | ezstream -c ezstream-stdin-broadcast.xml
+```
+

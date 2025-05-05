@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  EXAMPLE: A valid configuration that streams Vorbis input from STDIN as-is
+
+  This configuration streams Ogg Vorbis from standard input as-is.
+  -->
+
+<ezstream>
+
+  <servers>
+    <server>
+      <hostname>127.0.0.1</hostname>
+      <password>0hshitunitydied</password>
+    </server>
+  </servers>
+
+  <streams>
+    <stream>
+      <mountpoint>/wrct-broadcast.mp3</mountpoint>
+      <format>mp3</format>
+	<stream_name>WRCT</stream_name>
+	<stream_genre>freeform</stream_genre>
+	<stream_description>wrct radio station</stream_description>
+	<svrinfoname>WRCT</svrinfoname>
+	<svrinfodescription>wrct radio station</svrinfodescription>
+    </stream>
+  </streams>
+
+  <intakes>
+    <intake>
+      <type>stdin</type>
+    </intake>
+  </intakes>
+
+</ezstream>
