@@ -1,3 +1,3 @@
 #!/bin/bash
 ./kill.sh
-./start.sh
+./stream.sh
