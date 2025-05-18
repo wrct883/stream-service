@@ -27,6 +27,13 @@
     </stream>
   </streams>
 
+  <metadata>
+    <program>path to meta.sh</program>
+    <refresh_interval>30</refresh_interval>
+    <normalize_strings>Yes</normalize_strings>
+  </metadata>
+
+
   <intakes>
     <intake>
       <type>stdin</type>
