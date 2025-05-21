@@ -1,0 +1,15 @@
+[Unit]
+Description=WRCT Web Stream
+After=wrct-icecast.service
+Requires=wrct-icecast.service
+
+[Service]
+Type=simple
+ExecStart=/home/wrct/stream/stream
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

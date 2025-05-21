@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 import subprocess
 import time
 
@@ -7,7 +9,7 @@ def stream():
         "sox", "-q", "-c", "2", "-r", "48000", "-b", "24", "-e", "signed-integer",
         "-B", "-t", "raw", "-", "-t", "mp3", "-", "gain", "5"
     ]
-    ezstream_command = ["ezstream", "-c", "/home/wrct/stream/ezstream-stdin.xml"]
+    ezstream_command = ["ezstream", "-c", "/home/wrct/stream/configs/ezstream-stdin.xml"]
 
     rtpdump_process = subprocess.Popen(rtpdump_command, stdout=subprocess.PIPE)
     sox_process = subprocess.Popen(sox_command, stdin=rtpdump_process.stdout, stdout=subprocess.PIPE)

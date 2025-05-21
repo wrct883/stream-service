@@ -1,0 +1,44 @@
+#!/usr/bin/env python3
+
+import subprocess
+import time
+
+def stream():
+    rtl_fm_command = ["rtl_fm", "-g", "50", "-f", "88.3M", "-M", "wfm", "-s", "180k", "-E", "deemp" ]
+    sox_command = [
+        "sox", "-t", "raw", "-r", "180k", "-e", "signed", "-b", "16", "-c", "1",  "-V1",
+        "-", "-t", "mp3", "-", "remix", "1", "lowpass", "16k"
+    ]
+    ezstream_command = ["ezstream", "-c", "/home/wrct/stream/configs/ezstream-stdin-broadcast.xml"]
+
+    rtl_fm_process = subprocess.Popen(rtl_fm_command, stdout=subprocess.PIPE)
+    sox_process = subprocess.Popen(sox_command, stdin=rtl_fm_process.stdout, stdout=subprocess.PIPE)
+    ezstream_process = subprocess.Popen(ezstream_command, stdin=sox_process.stdout)
+
+    return [ rtl_fm_process, sox_process, ezstream_process ]
+
+def killall(processes):
+    for process in processes:
+        if process.poll() is None:
+            process.terminate()
+
+def isup(processes):
+    for process in processes:
+        if process.poll() is not None:
+            return True
+    return False
+
+while True:
+    processes = stream()
+
+    time.sleep(10)
+
+    while True:
+        if (isup(processes)):
+            print("One of the processes has exited. Restarting the stream...")
+            killall(processes)
+            break
+
+        time.sleep(5)
+
+    time.sleep(5)

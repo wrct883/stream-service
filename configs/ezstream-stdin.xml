@@ -18,17 +18,17 @@
   <streams>
     <stream>
       <mountpoint>/wrct-hi.mp3</mountpoint>
-			<format>mp3</format>
-			<stream_name>WRCT</stream_name>
-			<stream_genre>freeform</stream_genre>
-			<stream_description>wrct radio station</stream_description>
-			<svrinfoname>WRCT</svrinfoname>
-			<svrinfodescription>wrct radio station</svrinfodescription>
+      <format>mp3</format>
+      <stream_name>WRCT</stream_name>
+      <stream_genre>freeform</stream_genre>
+      <stream_description>wrct radio station</stream_description>
+      <svrinfoname>WRCT</svrinfoname>
+      <svrinfodescription>wrct radio station</svrinfodescription>
     </stream>
   </streams>
 
   <metadata>
-    <program>path to meta.sh</program>
+    <program>/home/wrct/stream/meta</program>
     <refresh_interval>30</refresh_interval>
     <normalize_strings>Yes</normalize_strings>
   </metadata>

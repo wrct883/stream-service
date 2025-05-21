@@ -1,0 +1,14 @@
+[Unit]
+Description=WRCT Icecast
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/icecast2 -c /home/wrct/stream/configs/icecast.xml
+ExecReload=/bin/kill -HUP $MAINPID
+User=wrct
+Group=wrct
+WorkingDirectory=/home/wrct/stream
+
+[Install]
+WantedBy=multi-user.target
