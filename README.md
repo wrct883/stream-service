@@ -1,39 +1,43 @@
-# Usage
-- Make sure all the paths, variables and arguments are correct
-- Add and enable the systemd service (as user so it can be restarted without root)
-- Set up a cron job to run `up-check.sh` as frequently as necessary
-
-# TODO
-- Make an env file
-- Test
-- Dockerize this?
-
-# How to Start on a New Computer
+# WRCT Webstream Service
+## How to Start on a New Computer
 Make sure your computer is connected to both CMU's internet, and the Axia/WRCT infranet (10.216.0.1/24)
 ```
-sudo apt install sox ezstream icecast2 libsox-fmt-mp3 screen
+sudo apt install git sox ezstream icecast2 libsox-fmt-mp3
 
 sudo ip route add 239.192.27.89 dev enx086d41e48818
 ^this ip address is for channel 7001
 
 clone [this rtptools repo](https://github.com/irtlab/rtptools) and `make install`
 
-cp wrct\@stream.service /etc/systemd/system/wcrt\@stream.service
+git clone https://github.com/wrct883/stream-service.git /home/wrct/stream
+cd /home/wrct/stream
 
-systemctl start wrct\@stream.service
+change all passwords and paths in files
 
-start a screen or tmux service, and run
-icecast2 -c icecast.xml
-in it, then exit
+sudo cp wrct-icecast.service /etc/systemd/system/
+sudo cp wrct-stream.service /etc/systemd/system/
 
-./up.sh
+sudo systemctl daemon-reload
 
-crontab -e
-*/1 * * * * /home/wrct/wrct_keep_alive/up-check.sh
+sudo systemctl enable --now wrct-icecast.service
+sudo systemctl enable --now wrct-stream.service
 ```
 
 Then go on [yxorp](https://github.com/wrct883/yxorp) and modify `stream.wrct.org` and `streamalt.wrct.org` to point to the ip addrss of the new machine
 
+## backup stream
+broadcast what's actually playing on radio using rtl-sdr:
+```
+sudo apt install rtl-sdr
+
+sudo cp wrct-broadcast.service /etc/systemd/system/
+
+sudo systemctl daemon-reload
+
+sudo systemctl enable --now wrct-broadcast.service
+```
+
+# Notes
 ## magic numbers
 This uses axia's livewire protocol. As of 2025-04-25, our current broadcast channel is `7001`. In order to stream `7001` we do a few things:
 
@@ -41,14 +45,10 @@ This uses axia's livewire protocol. As of 2025-04-25, our current broadcast chan
     * get the ip address (Python) with channel 7001: f"239.192.{7001 // 256}.{7001 % 256}"
     * `enx086d41e48` is the interface that's connected on the Axia network (10.216.0.0/24). You can find this using `ip a`
 
-2. Modify `0xefc01b59` in `stream.sh`, in the `rtpdump -F payload 0xefc01b59/5004` part of the command
+2. Modify `0xefc01b59` in `stream`, in the `rtpdump -F payload 0xefc01b59/5004` part of the command
     * get the hex code (Python) with channel 7001: `hex(239*256**3 + 192*256**2 + 7001)`
     * This uses the `rtpdump` command line utility you installed with the `rtptools` repo earlier. This listens on `rtp` to the above ip address, port 5004 (Axia Livewire protocol specification)
 
-
-## misc
-broadcast what's actually playing on radio using rtl-sdr:
-```
-rtl_fm -g 50 -f 88.3M -M wfm -s 180k -E deemp | sox -t raw -r 180k -e signed -b 16 -c 1 -V1 - -t mp3 - remix 1 lowpass 16k | ezstream -c ezstream-stdin-broadcast.xml
-```
-
+## TODO
+- manage passwords better
+- improve configs
