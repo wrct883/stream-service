@@ -4,7 +4,7 @@ get_metadata() {
     read start_time end_time show <<< $(curl --silent -H 'Authorization: Bearer NOPE' 'https://spinitron.com/api/shows?count=1' | jq -r '.items[0] | "\(.start) \(.end) \(.title)"' | iconv -t utf-8)
     song_artist=$(curl --silent -H 'Authorization: Bearer NOPE' 'https://spinitron.com/api/spins?count=1' | jq -r '.items[0] | "\(.song) - \(.artist)"' | iconv -t utf-8)
 
-    current_date=$(date -u +"%Y-%m-%dT%H:%M:%S%z")
+    current_time=$(date -u +"%Y-%m-%dT%H:%M:%S%z")
 
     if [[ "$current_time" > "$start_time" && "$current_time" < "$end_time" ]]; then
         echo "$show: $song_artist"
