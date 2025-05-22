@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/icecast2 -c /home/wrct/stream/configs/icecast.xml
+ExecStart=icecast2 -c /home/wrct/stream/configs/icecast.xml
 ExecReload=/bin/kill -HUP $MAINPID
 User=wrct
 Group=wrct

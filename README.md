@@ -11,6 +11,7 @@ clone [this rtptools repo](https://github.com/irtlab/rtptools) and `make install
 
 git clone https://github.com/wrct883/stream-service.git /home/wrct/stream
 cd /home/wrct/stream
+mkdir logs
 
 change all passwords and paths in files
 

@@ -10,6 +10,9 @@ Restart=on-failure
 RestartSec=5
 StandardOutput=journal
 StandardError=journal
+User=wrct
+Group=wrct
+WorkingDirectory=/home/wrct/stream
 
 [Install]
 WantedBy=multi-user.target
