@@ -1,9 +1,16 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 get_metadata() {
-    show=$(curl --silent -H 'Authorization: Bearer NOPE' 'https://spinitron.com/api/shows?count=1' | jq -r '.items[0] | "\(.title)"' | iconv -t utf-8)
+    read start_time end_time show <<< $(curl --silent -H 'Authorization: Bearer NOPE' 'https://spinitron.com/api/shows?count=1' | jq -r '.items[0] | "\(.start) \(.end) \(.title)"' | iconv -t utf-8)
     song_artist=$(curl --silent -H 'Authorization: Bearer NOPE' 'https://spinitron.com/api/spins?count=1' | jq -r '.items[0] | "\(.song) - \(.artist)"' | iconv -t utf-8)
-    echo "$show: $song_artist"
+
+    current_date=$(date -u +"%Y-%m-%dT%H:%M:%S%z")
+
+    if [[ "$current_time" > "$start_time" && "$current_time" < "$end_time" ]]; then
+        echo "$show: $song_artist"
+    else
+        echo "Automation: $song_artist"
+    fi
 }
 
 case "$1" in
