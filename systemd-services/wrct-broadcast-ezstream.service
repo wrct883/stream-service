@@ -1,0 +1,18 @@
+[Unit]
+Description=WRCT Broadcast Ezstream
+After=wrct-broadcast-sox.service
+Requires=wrct-broadcast-sox.service
+
+[Service]
+Type=simple
+ExecStart=/home/wrct/stream/broadcast/ezstream.sh
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+User=wrct
+Group=wrct
+WorkingDirectory=/tmp/wrct-broadcast
+
+[Install]
+WantedBy=multi-user.target

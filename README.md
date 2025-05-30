@@ -15,13 +15,15 @@ mkdir logs
 
 change all passwords and paths in files
 
-sudo cp wrct-icecast.service /etc/systemd/system/
-sudo cp wrct-stream.service /etc/systemd/system/
+sudo cp ./systemd-services/wrct-icecast.service /etc/systemd/system/
+sudo cp ./systemd-services/wrct-stream-* /etc/systemd/system/
 
 sudo systemctl daemon-reload
 
 sudo systemctl enable --now wrct-icecast.service
-sudo systemctl enable --now wrct-stream.service
+sudo systemctl enable --now wrct-stream-rtp.service
+sudo systemctl enable --now wrct-stream-sox.service
+sudo systemctl enable --now wrct-stream-ezstream.service
 ```
 
 Then go on [yxorp](https://github.com/wrct883/yxorp) and modify `stream.wrct.org` and `streamalt.wrct.org` to point to the ip addrss of the new machine
@@ -31,11 +33,13 @@ broadcast what's actually playing on radio using rtl-sdr:
 ```
 sudo apt install rtl-sdr
 
-sudo cp wrct-broadcast.service /etc/systemd/system/
+sudo cp ./systemd-services/wrct-broadcast-* /etc/systemd/system/
 
 sudo systemctl daemon-reload
 
-sudo systemctl enable --now wrct-broadcast.service
+sudo systemctl enable --now wrct-broadcast-rtl.service
+sudo systemctl enable --now wrct-broadcast-sox.service
+sudo systemctl enable --now wrct-broadcast-ezstream.service
 ```
 
 # Notes
