@@ -21,7 +21,7 @@ sudo cp ./systemd-services/wrct-stream-* /etc/systemd/system/
 sudo systemctl daemon-reload
 
 sudo systemctl enable --now wrct-icecast.service
-sudo systemctl enable --now wrct-stream-rtp.service
+sudo systemctl enable --now wrct-stream-rtpdump.service
 sudo systemctl enable --now wrct-stream-sox.service
 sudo systemctl enable --now wrct-stream-ezstream.service
 ```
@@ -55,5 +55,4 @@ This uses axia's livewire protocol. As of 2025-04-25, our current broadcast chan
     * This uses the `rtpdump` command line utility you installed with the `rtptools` repo earlier. This listens on `rtp` to the above ip address, port 5004 (Axia Livewire protocol specification)
 
 ## TODO
-- manage passwords better
-- improve configs
+- maybe script everything including the variables and passwords but that seems too tedious for something this simple, that will realistically need to be done maybe every couple of years
