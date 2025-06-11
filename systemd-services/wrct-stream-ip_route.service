@@ -1,0 +1,15 @@
+[Unit]
+Description=WRCT Broadcast IP Route for axia
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/sbin/ip route add 239.192.27.89 dev enx00051b353b2e
+StandardOutput=journal
+StandardError=journal
+User=root
+Group=root
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

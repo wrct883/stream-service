@@ -4,9 +4,6 @@ Make sure your computer is connected to both CMU's internet, and the Axia/WRCT i
 ```
 sudo apt install git sox ezstream icecast2 libsox-fmt-mp3
 
-sudo ip route add 239.192.27.89 dev enx086d41e48818
-^this ip address is for channel 7001
-
 clone [this rtptools repo](https://github.com/irtlab/rtptools) and `make install`
 
 git clone https://github.com/wrct883/stream-service.git /home/wrct/stream
@@ -21,6 +18,7 @@ sudo cp ./systemd-services/wrct-stream-* /etc/systemd/system/
 sudo systemctl daemon-reload
 
 sudo systemctl enable --now wrct-icecast.service
+sudo systemctl enable --now wrct-stream-ip_route.service
 sudo systemctl enable --now wrct-stream-rtpdump.service
 sudo systemctl enable --now wrct-stream-sox.service
 sudo systemctl enable --now wrct-stream-ezstream.service
