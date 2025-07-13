@@ -1,11 +1,11 @@
 [Unit]
-Description=WRCT Broadcast rtpdump (raw audio from axia)
+Description=WRCT Broadcast Restream
 After=wrct-icecast.service
 Requires=wrct-icecast.service
 
 [Service]
 Type=simple
-ExecStart=/home/wrct/stream/stream/rtpdump.sh
+ExecStart=/home/wrct/stream/broadcast.sh
 Restart=on-failure
 RestartSec=5
 StandardOutput=journal

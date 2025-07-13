@@ -1,0 +1,18 @@
+[Unit]
+Description=WRCT Main Stream
+After=wrct-icecast.service wrct-ip_route.service
+Requires=wrct-icecast.service wrct-ip_route.service
+
+[Service]
+Type=simple
+ExecStart=/home/wrct/stream/stream.sh
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+User=wrct
+Group=wrct
+WorkingDirectory=/home/wrct/stream
+
+[Install]
+WantedBy=multi-user.target
