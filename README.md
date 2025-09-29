@@ -39,6 +39,7 @@ sudo systemctl enable --now wrct-broadcast.service
 
 # Notes
 ## magic numbers
+### axia
 This uses axia's livewire protocol. As of 2025-04-25, our current broadcast channel is `7001`. In order to stream `7001` we do a few things:
 
 1. Run `sudo ip route add 239.192.27.89 dev enx086d41e48818` on host
@@ -48,6 +49,14 @@ This uses axia's livewire protocol. As of 2025-04-25, our current broadcast chan
 2. Modify `0xefc01b59` in `stream`, in the `rtpdump -F payload 0xefc01b59/5004` part of the command
     * get the hex code (Python) with channel 7001: `hex(239*256**3 + 192*256**2 + 7001)`
     * This uses the `rtpdump` command line utility you installed with the `rtptools` repo earlier. This listens on `rtp` to the above ip address, port 5004 (Axia Livewire protocol specification)
+
+### sox
+rtpdump from the axia network gives us a:
+- 2 channel
+- 48kHz sample rate (tweaked ffmpeg paramters till something sounded like it was the right speed)
+- 24bit big-endian PCM stream (tweaked ffmpeg parameters till i got something that wasnt just noise)
+
+it then spits out a 48kHz 2channel 128kbps mp3 stream on stdout
 
 ## TODO
 - maybe script everything including the variables and passwords but that seems too tedious for something this simple, that will realistically need to be done maybe every couple of years
