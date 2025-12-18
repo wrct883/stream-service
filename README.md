@@ -63,6 +63,9 @@ rtpdump from the axia network gives us a:
 
 it then spits out a 48kHz 2channel 128kbps mp3 stream on stdout
 
+## barix
+remember to not use the url since that will use the internet as it will be getting through the reverse proxy. this is slow for the barix near the transmitter. use the local ip address of the machine running icecast since they should be on the same subnet (and port 8000, default icecast port)
+
 ## TODO
 - maybe script everything including the variables and passwords but that seems too tedious for something this simple, that will realistically need to be done maybe every couple of years
 - maybe symlink the systemd-services to keep them all maintained, but maybe that wont work cause iirc systemd symlinks those files too
