@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=oneshot
-ExecStart=/usr/sbin/ip route add 239.192.27.89 dev enx00051b353b2e
+ExecStart=/usr/sbin/ip route add 239.192.7.218 dev enx00051b353b2e
 StandardOutput=journal
 StandardError=journal
 User=root
