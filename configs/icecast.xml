@@ -3,7 +3,7 @@
          on the server info page of the icecast web interface
          (server_version.xsl). -->
     <location>Pittsburgh</location>
-    <admin>icemaster@localhost</admin>
+    <admin>engineering@wrct.org</admin>
 
     <!-- IMPORTANT!
          Especially for inexperienced users:
@@ -93,6 +93,10 @@
     -->
     <http-headers>
         <header name="Access-Control-Allow-Origin" value="*"/>
+	<header name="icy-main-stream-url" value="http://stream.wrct.org/wrct-hi.mp3"/>
+        <header name="icy-language-codes" value="en"/>
+	<header name="icy-index-metadata" value="1"/>
+	<header name="icy-logo" value="https://wrct.org/wp-content/themes/tabloid-chic/images/logo.png"/>
     </http-headers>
 
 
@@ -129,17 +133,10 @@
 
     <!-- Default settings for all mounts that don't have a specific <mount type="normal">.
     -->
-    <!--
     <mount type="default">
-        <public>0</public>
-        <intro>/server-wide-intro.ogg</intro>
-        <max-listener-duration>3600</max-listener-duration>
-        <authentication type="url">
-                <option name="mount_add" value="http://auth.example.org/stream_start.php"/>
-        </authentication>
-        <http-headers>
-                <header name="foo" value="bar" />
-        </http-headers>
+	    <mount-name>/wrct-hi.mp3</mount-name>
+	    <fallback-mount>/wrct-broadcast.mp3</fallback-mount>
+	    <fallback-override>1</fallback-override>
     </mount>
     -->
 
