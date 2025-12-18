@@ -37,12 +37,17 @@ sudo systemctl daemon-reload
 sudo systemctl enable --now wrct-broadcast.service
 ```
 
+## cleanup logs
+run the `./clean-logs.sh`
+
 # Notes
 ## magic numbers
 ### axia
 This uses axia's livewire protocol. As of 2025-04-25, our current broadcast channel is `7001`. In order to stream `7001` we do a few things:
 
-1. Run `sudo ip route add 239.192.27.89 dev enx086d41e48818` on host
+*when this changes put the new ip in the wrct-stream-ip_route.service and the stream.sh*
+
+1. Run `sudo ip route add 239.192.27.89 dev enx086d41e48818` on host (this is handled by the systemd oneshot service called wrct-stream-ip_route, update the number there)
     * get the ip address (Python) with channel 7001: f"239.192.{7001 // 256}.{7001 % 256}"
     * `enx086d41e48` is the interface that's connected on the Axia network (10.216.0.0/24). You can find this using `ip a`
 
@@ -60,3 +65,5 @@ it then spits out a 48kHz 2channel 128kbps mp3 stream on stdout
 
 ## TODO
 - maybe script everything including the variables and passwords but that seems too tedious for something this simple, that will realistically need to be done maybe every couple of years
+- maybe symlink the systemd-services to keep them all maintained, but maybe that wont work cause iirc systemd symlinks those files too
+- script getting all the services set up?
